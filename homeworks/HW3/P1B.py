@@ -20,5 +20,8 @@ X_train, X_test, y_train, y_test = train_test_split(dataset['data'],
 
 
 
-model = Reg.LineraRegression()
+model = Reg.LinearRegression()
 model.fit(X_train,y_train)
+predictions = model.predict(X_test)
+
+R = model.score(y_test)
