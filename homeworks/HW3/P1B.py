@@ -18,13 +18,18 @@ X_train, X_test, y_train, y_test = train_test_split(dataset['data'],
                                                     random_state=42)
 
 
-
+# Printing all the functions/methods in the class 'Regression
 print(dir(Reg.Regression))
 
 
 
-model = Reg.LinearRegression()
-model.fit(X_train,y_train)
-predictions = model.predict(X_test)
+model1 = Reg.LinearRegression()
+model2 = Reg.RidgeRegression(alpha=0.8)
 
-R = model.score(y_test)
+
+models = [model1, model2]
+
+for model in models:
+    model.fit(X_train, y_train)
+    model.predict(X_test)
+    model.score(y_test)

@@ -27,9 +27,9 @@ class Regression():
         raise NotImplementedError("Not implementable in this class")
         
     def set_params(self,**kwargs):
-        raise NotImplementedError("Not implementable in this class")
-        
-        
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+       
 
 # Linear regression 
 class LinearRegression(Regression):
@@ -67,3 +67,29 @@ class LinearRegression(Regression):
         print("The R^2 is {:.2f}".format(self.r_squared))
         return self.r_squared
         
+    
+# RidgeRegression class. Inherets from LinearRegression
+class RidgeRegression(LinearRegression):
+    
+    def __init__(self, alpha=0.1):
+        super(RidgeRegression, self).__init__()
+        self.params['alpha'] = alpha
+
+    
+    def fit(self,X,y):
+        ones = np.ones(X.shape[0])
+        X = np.c_[ones,X]
+        X_t = np.transpose(X)
+        
+        gamma = self.params['alpha']*np.identity(X.shape[1])
+        gamma_t = np.transpose(gamma)
+        
+        # Finding the inverse of a long matrix 
+        x_tX_inv = np.linalg.pinv(np.dot(X_t,X)+ np.dot(gamma_t,gamma))
+        
+        # Finding the betas
+        b = np.dot(x_tX_inv,np.dot(X_t,y))
+        
+        self.params['beta'] = b
+        
+    
