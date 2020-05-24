@@ -102,19 +102,113 @@ class BankUser():
     def deposit(self, accountType, amount):
         if accountType == AccountType.SAVINGS:
             return self.savings.deposit(amount)
-        if accountType == AccountType.CHECKING:
+        elif accountType == AccountType.CHECKING:
             return self.checking.deposit(amount)
+        else:
+            raise WrongTypeAccount('You entered an invalid account type')
          
             
     def withdraw(self, accountType, amount):
         if accountType == AccountType.SAVINGS:
             return self.savings.withdraw(amount)
-        if accountType == AccountType.CHECKING:
+        elif accountType == AccountType.CHECKING:
             return self.checking.withdraw(amount)
+        else:
+            raise WrongTypeAccount('You entered an invalid account type')
+         
     
     def __str__(self):
         return 'User currently has {} and {} accounts'.format(self.checking,self.savings)
          
             
+def ATMsession(bankUser):
+    
+    def Interface():
+        exit_status = 0
+        user = bankUser
+        while exit_status !=1:
+            print('Hello, {}! What would you like to to today?'\
+                  .format(bankUser.owner))
+            beginning = input('''Enter option: 
+                          \n1)Exit 
+                          \n2)Create account 
+                          \n3)Check balance
+                          \n4)Deposit
+                          \n5)Withdraw
+                          \nThis is your input: ''')
+                          
+            if beginning == '1':
+                print('Exiting. Good bye!')
+                break
+            
+            
+            # Options for the type of account
+            typeaccount = input('''Enter option:
+                            \n1)Checking
+                            \n2)Savings
+                            \nThis is your input: ''')
+                        
+            # Setting the type of bank account
+            if typeaccount == '1':
+                selected = AccountType.CHECKING
+            elif typeaccount == '2':
+                selected = AccountType.SAVINGS
+            
+            
+            # Creating bank account    
+            if beginning == '2':
+                if typeaccount == '1':
+                    try:
+                        user.addAccount(selected)
+                        print('Checking account created!')
+                    except Exception as e:
+                        print(e)
+                elif typeaccount == '2':
+                    try:
+                        user.addAccount(selected)
+                        print('Savings account created!')
+                    except Exception as e:
+                        print(e)
+                else:
+                    print('Wrong type of account')
+                    
+                    
+            # Checking balance. Needs to create a bank account first  
+            if beginning == '3':
+                try:
+                    print('Your balance in this account is {}'\
+                          .format(user.getBalance(selected)))
+                except:
+                    print('Please go back and create a bank account first')
+                    
+            # Creating a deposit
+            if beginning == '4':
+                amount = input('Please enter your deposit amount: ')
+                try:
+                    amount = int(amount)
+                    user.deposit(selected, amount)
+                    print('Your amount of {} was succesfully deposited!'\
+                          .format(amount))
+                    print('Your balance in this account is {}'\
+                          .format(user.getBalance(selected)))
+                except Exception as e:
+                    print(e)
+            
+            
+            # Creating a withdrawal
+            if beginning == '5':
+                amount = input('Please enter your withdrawal amount: ')
+                try:
+                    amount = int(amount)
+                    user.withdraw(selected, amount)
+                    print('Your amount of {} was succesfully withdrawn!'\
+                          .format(amount))
+                    print('Your balance in this account is {}'\
+                          .format(user.getBalance(selected)))
+                except Exception as e:
+                    print(e)
+                    
+        
+    return Interface()
 
-
+session = ATMsession(BankUser('Andrés'))
