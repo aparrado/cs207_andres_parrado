@@ -23,6 +23,8 @@ class NegativeAmount(Exception):
 class AccountError(Exception):
     pass
 
+class WrongTypeAccount(Exception):
+    pass
 
 
 # BankAccount class
@@ -56,8 +58,12 @@ class BankAccount():
     
     
     def __str__(self):
-        return 'a Savings'
-    
+        if self.accountType == AccountType.CHECKING:
+            return 'a Checking'
+        elif self.accountType == AccountType.SAVINGS:
+            return 'a Savings'
+        else:
+            return 'No account'
     
     def __len__(self):
         return self.balance
@@ -82,6 +88,8 @@ class BankUser():
             if self.checking != None:
                 raise AccountError('Bank account of this type already present')
             self.checking  = BankAccount(self.owner,accountType)
+        else:
+            raise WrongTypeAccount('You cannot add this account')
             
             
     def getBalance(self, accountType):
