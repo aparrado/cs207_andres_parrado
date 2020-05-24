@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 24 11:07:08 2020
+
+@author: andresparrado
+"""
+
+from Bank import *
+
+def test_over_withdrawal(): #this test function should throw an
+    user = BankUser("Joe");
+    user.addAccount(AccountType.SAVINGS);
+    user.deposit(AccountType.SAVINGS, 10);
+    try:
+        user.withdraw(AccountType.SAVINGS, 1000); #this should throw an Exception or Error
+    except Exception as e:
+        print(e); #print the message for the Exeption
+test_over_withdrawal();
