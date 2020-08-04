@@ -25,7 +25,7 @@ class Animal:
 
     def __init__(self, name, species):
         self.name = name
-        self._species = species
+        self.species = species
 
     @property
     def species(self):
@@ -41,3 +41,8 @@ class Animal:
 
     def __repr__(self):
         return f'{self.name} ({self._species})'
+    
+    
+def transform(animal, into):
+    animal.species = into
+    return animal
