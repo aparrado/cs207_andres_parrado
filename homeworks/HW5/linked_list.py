@@ -34,13 +34,16 @@ class LinkedList:
         return self._head if i == 0 else self._tail[i-1]
 
     def prepend(self, val):
+        #To do as homework
         return LinkedList(val, self)
 
     def append(self, val):
+        #To do as homework
         return LinkedList(self.head,self.tail.append(val))
 
     def for_each(self, fun):
-        pass # TODO
+        #To do as homework
+        return LinkedList(fun(self.head),self.tail.for_each(fun))
 
     def summation(self):
         return self._head + self._tail.summation() if self._tail else self._head
@@ -73,12 +76,21 @@ class Nil():
         return False
 
     def prepend(self, val): 
-        pass # TODO
-
+        #To do as homework
+        return LinkedList(val, Nil())
+        
     def append(self, val):  
         return LinkedList(val, Nil())
 
     def for_each(self, fun):
-        pass # TODO
-        
+        #To do as homework
+        return Nil()
+
+
+#Tests
 metalist = LinkedList('A',LinkedList('B',Nil()))
+
+##Testing the second part of the HW
+def square(x):
+    return x**2
+l = Nil().prepend(1).prepend(2).prepend(3).prepend(4)
