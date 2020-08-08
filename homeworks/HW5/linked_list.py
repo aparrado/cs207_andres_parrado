@@ -54,7 +54,7 @@ class LinkedList:
         return smaller(self._head, self._tail.minimum()) if self._tail else self._head
 
     def reduce_right(self, fun):
-        pass # TODO
+        return fun(self._head,self._tail.reduce_right(fun)) if self._tail else self._head
 
 
 #Second class
@@ -90,7 +90,11 @@ class Nil():
 #Tests
 metalist = LinkedList('A',LinkedList('B',Nil()))
 
-##Testing the second part of the HW
+##Testing part b of the HW
 def square(x):
     return x**2
-l = Nil().prepend(1).prepend(2).prepend(3).prepend(4)
+l = Nil().prepend(2).prepend(2).prepend(3).prepend(4)
+
+##Function to test part C
+def smaller(a, b):
+    return a if a < b else b
